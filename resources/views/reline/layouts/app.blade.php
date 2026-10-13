@@ -180,10 +180,30 @@
         </div>
     </aside><!-- /.sidebar-three -->
 
-    <a href="#" data-target="html" class="scroll-to-target scroll-to-top">
-        <span class="scroll-to-top__text">back top</span>
-        <span class="scroll-to-top__wrapper"><span class="scroll-to-top__inner"></span></span>
-    </a>
+    <style>
+        .reline-top { position: fixed; right: 30px; bottom: 30px; z-index: 99; width: 56px; height: 56px; border-radius: 50%; border: 0; padding: 0; cursor: pointer; background: var(--visanet-black3, #1d253a); color: #fff; box-shadow: 0 10px 30px rgba(0, 0, 0, .25); opacity: 0; visibility: hidden; transform: translateY(20px); transition: opacity .4s, visibility .4s, transform .4s, background .3s; }
+        .reline-top.is-visible { opacity: 1; visibility: visible; transform: translateY(0); }
+        .reline-top:hover { background: var(--visanet-base, #e50c37); }
+        .reline-top::before { content: ""; position: absolute; inset: -7px; border-radius: 50%; border: 2px dashed var(--visanet-base, #e50c37); animation: reline-top-spin 8s linear infinite; }
+        .reline-top:hover::before { border-color: var(--visanet-black3, #1d253a); }
+        .reline-top__ring { position: absolute; inset: 0; width: 100%; height: 100%; transform: rotate(-90deg); }
+        .reline-top__ring circle { fill: none; stroke-width: 3; }
+        .reline-top__ring .track { stroke: rgba(255, 255, 255, .15); }
+        .reline-top__ring .bar { stroke: var(--visanet-base, #e50c37); stroke-linecap: round; transition: stroke-dashoffset .1s linear; }
+        .reline-top:hover .reline-top__ring .bar { stroke: #fff; }
+        .reline-top__icon { position: relative; display: inline-flex; font-size: 18px; animation: reline-top-bounce 1.6s ease-in-out infinite; }
+        @keyframes reline-top-spin { to { transform: rotate(360deg); } }
+        @keyframes reline-top-bounce { 0%, 100% { transform: translateY(2px); } 50% { transform: translateY(-4px); } }
+        @media (max-width: 575px) { .reline-top { right: 20px; bottom: 20px; width: 48px; height: 48px; } }
+        @media (prefers-reduced-motion: reduce) { .reline-top::before, .reline-top__icon { animation: none; } }
+    </style>
+    <button type="button" class="reline-top" aria-label="Back to top">
+        <svg class="reline-top__ring" viewBox="0 0 56 56" aria-hidden="true">
+            <circle class="track" cx="28" cy="28" r="26" />
+            <circle class="bar" cx="28" cy="28" r="26" />
+        </svg>
+        <span class="reline-top__icon"><i class="fas fa-arrow-up"></i></span>
+    </button>
 
     <script src="{{asset(assetLink().'/assets/vendors/jquery/jquery-3.7.1.min.js')}}"></script>
     <script src="{{asset(assetLink().'/assets/vendors/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
@@ -211,6 +231,27 @@
     <script src="{{asset(assetLink().'/assets/js/visanet.js')}}"></script>
 
     <script>
+        (function () {
+            var btn = document.querySelector('.reline-top');
+            var bar = btn.querySelector('.bar');
+            var length = 2 * Math.PI * 26;
+            bar.style.strokeDasharray = length;
+            bar.style.strokeDashoffset = length;
+
+            function update() {
+                var max = document.documentElement.scrollHeight - window.innerHeight;
+                var progress = max > 0 ? window.scrollY / max : 0;
+                bar.style.strokeDashoffset = length * (1 - progress);
+                btn.classList.toggle('is-visible', window.scrollY > 300);
+            }
+
+            window.addEventListener('scroll', update, { passive: true });
+            update();
+            btn.addEventListener('click', function () {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        })();
+
         $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
 
         $(document).on('click', '.subsriberbtm', function (e) {
