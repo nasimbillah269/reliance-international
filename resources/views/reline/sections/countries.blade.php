@@ -9,7 +9,8 @@ $regions = [
 @push('css')
 <style>
     .countries-two__flags { display: flex; flex-wrap: wrap; gap: 10px 14px; margin: 0; padding: 0; list-style: none; }
-    .countries-two__flags li { display: inline-flex; align-items: center; gap: 7px; font-size: 15px; font-weight: 500; color: var(--visanet-black3, #1d253a); }
+    .countries-two__flags li { display: inline-flex; align-items: center; gap: 7px; font-size: 15px; font-weight: 500; color: var(--visanet-black3, #1d253a); transition: color .5s ease-in-out; }
+    .countries-two__card:hover .countries-two__flags li { color: var(--visanet-white, #ffffff); }
     .countries-two__flags img { width: 26px; height: 18px; object-fit: cover; border-radius: 3px; box-shadow: 0 0 0 1px rgba(0,0,0,.08); }
     .countries-two__card .countries-two__flag { width: 70px; height: 70px; object-fit: cover; border-radius: 50%; }
 </style>

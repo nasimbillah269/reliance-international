@@ -17,7 +17,7 @@ $coreValues = [
     .mission-vision__card__icon { width: 70px; height: 70px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 32px; color: #fff; background: var(--visanet-base, #e50c37); margin-bottom: 20px; }
     .mission-vision__card__title { font-size: 28px; margin-bottom: 15px; }
     .mission-vision__card p:last-child { margin-bottom: 0; }
-    .mission-vision__value { height: 100%; background: #fff; border-radius: 20px; padding: 30px; text-align: center; transition: all .4s; }
+    .mission-vision__value { height: 100%; background: #fff; border-radius: 20px; padding: 10px; text-align: center; transition: all .4s; }
     .mission-vision__value:hover { background: var(--visanet-black3, #1d253a); transform: translateY(-5px); }
     .mission-vision__value:hover h4, .mission-vision__value:hover p { color: #fff; }
     .mission-vision__value__icon { font-size: 42px; color: var(--visanet-base, #e50c37); display: block; margin-bottom: 15px; }
